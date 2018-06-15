@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Send To Things",
   "description": "Send the current tab to Things",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "applications": {
     "gecko": {
       "id": "send-to-things@mozilla.kewis.ch"
@@ -14,8 +14,14 @@
   },
 
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ],
+
+  "options_ui": {
+    "page": "options/options.html",
+    "browser_style": true
+  },
 
   "browser_action": {
     "default_icon": "images/things.png",

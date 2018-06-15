@@ -3,12 +3,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * Portions Copyright (C) Philipp Kewisch, 2017 */
 
-chrome.browserAction.onClicked.addListener((tab) => {
-  chrome.tabs.create({
+chrome.browserAction.onClicked.addListener(async (tab) => {
+  let { quickentry, reveal, when } = await browser.storage.local.get({ quickentry: true, reveal: true, when: "inbox" });
+
+  let url = `things:add?title=${encodeURIComponent(tab.title)}&notes=${encodeURIComponent(tab.url)}&show-quick-entry=${quickentry}&reveal=${reveal}`;
+
+  if (when != "inbox" && !quickentry) {
+    url += `&when=${when}`;
+  }
+
+  let newTab = await browser.tabs.create({
     active: false,
     index: 0,
-    url: `things:add?title=${encodeURIComponent(tab.title)}&notes=${encodeURIComponent(tab.url)}`
-  }, (newTab) => {
-    chrome.tabs.remove(newTab.id);
+    url: url
   });
+
+  browser.tabs.remove(newTab.id);
 });
