@@ -18,5 +18,12 @@ chrome.browserAction.onClicked.addListener(async (tab) => {
     url: url
   });
 
-  browser.tabs.remove(newTab.id);
+  let cleanup = function(tabId, changeInfo, tabInfo){
+    if(changeInfo.status == "complete") {
+      browser.tabs.remove(newTab.id)
+    }
+  }
+
+  browser.tabs.onUpdated.addListener(cleanup, {tabId: newTab.id})
+
 });
