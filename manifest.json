@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Send To Things",
   "description": "Send the current tab to Things",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "applications": {
     "gecko": {
       "id": "send-to-things@mozilla.kewis.ch"
