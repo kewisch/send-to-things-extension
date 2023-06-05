@@ -4,7 +4,8 @@
  * Portions Copyright (C) Philipp Kewisch, 2017 */
 
 chrome.action.onClicked.addListener(async (tab) => {
-  let { quickentry, reveal, when } = await browser.storage.local.get({ quickentry: true, reveal: true, when: "inbox" });
+  let { quickentry, reveal, when, firstLoad } = await browser.storage.local.get({ quickentry: true, reveal: true, when: "inbox", firstLoad: true });
+  let focusTempTab = !!firstLoad
 
   let url = `things:add?title=${encodeURIComponent(tab.title)}&notes=${encodeURIComponent(tab.url)}&show-quick-entry=${quickentry}&reveal=${reveal}`;
 
@@ -13,17 +14,17 @@ chrome.action.onClicked.addListener(async (tab) => {
   }
 
   let newTab = await browser.tabs.create({
-    active: false,
+    active: focusTempTab,
     index: 0,
     url: url
   });
 
   let cleanup = function(tabId, changeInfo, tabInfo){
-    if(changeInfo.status == "complete") {
+    if (changeInfo.status == "complete" && !focusTempTab) {
       browser.tabs.remove(newTab.id)
     }
+    browser.storage.local.set({firstLoad: false})
   }
 
   browser.tabs.onUpdated.addListener(cleanup, {tabId: newTab.id})
-
 });

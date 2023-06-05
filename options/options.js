@@ -62,6 +62,18 @@ async function load() {
   updateRevealState();
 }
 
+function promptSetup() {
+  let title = "welcome to Send To Things Firefox extension"
+  let url = `things:add?title=${encodeURIComponent(title)}&show-quick-entry=true&reveal=true`
+
+  browser.tabs.create({
+    active: true,
+    url: url
+  });
+
+  browser.storage.local.set({firstLoad: false})
+}
+
 function listen() {
   let showNode = document.getElementById("quickentry");
   showNode.addEventListener("click", save);
@@ -72,6 +84,9 @@ function listen() {
 
   let whenNode = document.getElementById("when");
   whenNode.addEventListener("change", save);
+
+  let setupNode = document.getElementById("setup");
+  setupNode.addEventListener("click", promptSetup)
 }
 
 (async function() {
