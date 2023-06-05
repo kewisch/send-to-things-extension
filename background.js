@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  * Portions Copyright (C) Philipp Kewisch, 2017 */
 
-chrome.browserAction.onClicked.addListener(async (tab) => {
+chrome.action.onClicked.addListener(async (tab) => {
   let { quickentry, reveal, when } = await browser.storage.local.get({ quickentry: true, reveal: true, when: "inbox" });
 
   let url = `things:add?title=${encodeURIComponent(tab.title)}&notes=${encodeURIComponent(tab.url)}&show-quick-entry=${quickentry}&reveal=${reveal}`;

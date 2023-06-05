@@ -1,9 +1,9 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Send To Things",
   "description": "Send the current tab to Things",
-  "version": "1.2.1",
-  "applications": {
+  "version": "1.2.2",
+  "browser_specific_settings": {
     "gecko": {
       "id": "send-to-things@mozilla.kewis.ch"
     }
@@ -19,14 +19,12 @@
   ],
 
   "options_ui": {
-    "page": "options/options.html",
-    "browser_style": true
+    "page": "options/options.html"
   },
 
-  "browser_action": {
+  "action": {
     "default_icon": "images/things.png",
-    "default_title": "Send To Things",
-    "browser_style": false
+    "default_title": "Send To Things"
   },
 
   "commands": {
@@ -39,8 +37,6 @@
   },
 
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   }
 }
