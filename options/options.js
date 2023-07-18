@@ -63,7 +63,7 @@ async function load() {
 }
 
 function promptSetup() {
-  let title = "welcome to Send To Things Firefox extension"
+  let title = "Enjoy the Send To Things Firefox extension"
   let url = `things:add?title=${encodeURIComponent(title)}&show-quick-entry=true&reveal=true`
 
   browser.tabs.create({
